@@ -36,6 +36,7 @@ export const ResourceCard = ({
 }: ResourceCardProps) => {
   const [loading, setLoading] = useState(false);
 
+  const hasUsername = currentUser && currentUser.trim().length > 0;
   const isTakenByCurrentUser = resource.is_taken && resource.taken_by === currentUser;
   const isTakenByOther = resource.is_taken && resource.taken_by !== currentUser;
 
@@ -118,7 +119,7 @@ export const ResourceCard = ({
           <Switch
             checked={isTakenByCurrentUser}
             onChange={handleToggle}
-            disabled={loading || isTakenByOther}
+            disabled={loading || isTakenByOther || !hasUsername}
             color="success"
           />
         </Box>
@@ -130,7 +131,7 @@ export const ResourceCard = ({
             size="small"
             startIcon={loading ? <CircularProgress size={16} /> : <StealIcon />}
             onClick={handleSteal}
-            disabled={loading}
+            disabled={loading || !hasUsername}
           >
             Steal
           </Button>

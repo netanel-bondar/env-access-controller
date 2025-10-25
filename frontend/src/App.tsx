@@ -11,6 +11,7 @@ import {
   Alert,
   Chip,
   CircularProgress,
+  TextField,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 import { ResourceCard } from './components/ResourceCard';
@@ -20,7 +21,9 @@ import type { ResourceInfo } from './types/resource';
 const REFRESH_INTERVAL = 5000; // 5 seconds
 
 function App() {
-  const [username, setUsername] = useState<string>('');
+  const [username, setUsername] = useState<string>(() => {
+    return localStorage.getItem('username') || '';
+  });
   const [publishers, setPublishers] = useState<Record<string, ResourceInfo>>({});
   const [environments, setEnvironments] = useState<Record<string, ResourceInfo>>({});
   const [loading, setLoading] = useState(true);
@@ -56,13 +59,12 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    // Fetch username on mount
-    apiService
-      .getUsername()
-      .then(setUsername)
-      .catch(() => setUsername('unknown'));
+  const handleUsernameChange = (newUsername: string) => {
+    setUsername(newUsername);
+    localStorage.setItem('username', newUsername);
+  };
 
+  useEffect(() => {
     // Initial fetch
     fetchData();
 
@@ -148,10 +150,20 @@ function App() {
             Environment Access Controller
           </Typography>
           <Box display="flex" alignItems="center" gap={2}>
-            <Chip
-              label={`User: ${username}`}
-              color="secondary"
+            <TextField
+              value={username}
+              onChange={(e) => handleUsernameChange(e.target.value)}
+              placeholder="Enter your name"
               size="small"
+              variant="outlined"
+              sx={{
+                input: { color: 'white' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                  '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.7)' },
+                  '&.Mui-focused fieldset': { borderColor: 'white' },
+                },
+              }}
             />
             <Chip
               icon={<RefreshIcon />}
@@ -165,6 +177,12 @@ function App() {
       </AppBar>
 
       <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+        {!username && (
+          <Alert severity="warning" sx={{ mb: 3 }}>
+            Please enter your name in the text field above to take or release resources.
+          </Alert>
+        )}
+
         {/* QA Publishers Section */}
         <Paper sx={{ p: 3, mb: 4 }}>
           <Typography variant="h5" gutterBottom>
