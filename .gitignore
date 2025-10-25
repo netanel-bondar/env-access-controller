@@ -1,4 +1,39 @@
+# Python
 .venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Node
+node_modules/
+
+# Environment
 .env
+.env.local
+.env.*.local
+
+# Logs
 *.log
+
+# IDEs
 .idea
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build outputs
+dist/
+build/
+
+# Backend persistence
+backend/resources_state.json
+backend/resources_state.tmp
+backend/data/*.db
