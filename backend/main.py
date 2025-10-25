@@ -7,9 +7,10 @@ import getpass
 app = FastAPI(title="Environment Access Controller API", version="1.0.0")
 
 # Configure CORS
+allowed_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend URL
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

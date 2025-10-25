@@ -1,7 +1,8 @@
 import axios from 'axios';
 import type { ResourceInfo, AllResourcesStatus, ActionResponse } from '../types/resource';
+import import.meta.env.VITE_API_URL
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = VITE_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
