@@ -5,7 +5,7 @@ import {
   Typography,
   Container,
   Box,
-  Grid,
+  Grid2,
   Paper,
   Snackbar,
   Alert,
@@ -170,9 +170,9 @@ function App() {
           <Typography variant="h5" gutterBottom>
             QA Publishers
           </Typography>
-          <Grid container spacing={3}>
+          <Grid2 container spacing={3}>
             {Object.entries(publishers).map(([id, publisher]) => (
-              <Grid item xs={12} sm={6} md={4} key={id}>
+              <Grid2 xs={12} sm={6} md={4} key={id}>
                 <ResourceCard
                   id={id}
                   resource={publisher}
@@ -181,9 +181,9 @@ function App() {
                   onRelease={handleReleasePublisher}
                   onSteal={handleStealPublisher}
                 />
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         </Paper>
 
         {/* Staging Environments Section */}
@@ -191,9 +191,9 @@ function App() {
           <Typography variant="h5" gutterBottom>
             Staging Environments
           </Typography>
-          <Grid container spacing={3}>
+          <Grid2 container spacing={3}>
             {Object.entries(environments).map(([id, env]) => (
-              <Grid item xs={12} sm={6} md={4} key={id}>
+              <Grid2 xs={12} sm={6} md={4} key={id}>
                 <ResourceCard
                   id={id}
                   resource={env}
@@ -202,9 +202,9 @@ function App() {
                   onRelease={handleReleaseEnvironment}
                   onSteal={handleStealEnvironment}
                 />
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         </Paper>
       </Container>
 
