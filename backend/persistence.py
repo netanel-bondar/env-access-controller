@@ -6,8 +6,13 @@ from pathlib import Path
 
 
 class ResourcePersistence:
-    def __init__(self, data_dir: str = "data"):
-        self.data_dir = Path(data_dir)
+    def __init__(self, data_dir: str = None):
+        if data_dir is None:
+            # Use absolute path: backend/data/ relative to this script
+            script_dir = Path(__file__).parent
+            self.data_dir = script_dir / "data"
+        else:
+            self.data_dir = Path(data_dir)
         self.data_dir.mkdir(exist_ok=True)
 
         self.publishers_db = self.data_dir / "qa_publishers.db"
